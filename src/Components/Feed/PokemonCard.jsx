@@ -24,6 +24,8 @@ const PokemonCard = ({ pokemon, onToggleFavorite }) => {
           <Typography gutterBottom variant="h5" component="div" textAlign="center">
             {pokemon.name}
           </Typography>
+          <Typography>{pokemon.types}</Typography>
+          <Typography>{pokemon.weakness}</Typography>
         </CardContent>
         <CardActions>
           <Button size="small" onClick={toggleFavorite}>

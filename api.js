@@ -19,9 +19,27 @@ export async function getPokemons() {
 export async function getPokemonsDetails(pokemonUrl) {
   try {
     const response = await axios.get(pokemonUrl);
-    return response.data;
+    const { types } = response.data;
+    const typeNames = types.map((item) => item.type.name).join(", ");
+    const weakness = await getPokemonWeakness(types[0].type.url);
+    return {
+      types: typeNames,
+      image: response.data.sprites.front_default,
+      weakness,
+    };
   } catch (error) {
-    console.log("Falha na requisão da imagem: ", error);
+    console.log("Falha na requisão dos detalhes: ", error);
     return null;
+  }
+}
+
+export async function getPokemonWeakness(typeUrl) {
+  try {
+    const response = await axios.get(typeUrl);
+    const damageRelations = response.data.damage_relations.double_damage_from;
+    const weakness = damageRelations.map((item) => item.name).join(", ");
+    return weakness;
+  } catch (error) {
+    console.error("Falha na requisição da fraqueza: ", error);
   }
 }

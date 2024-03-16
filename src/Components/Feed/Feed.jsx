@@ -10,16 +10,18 @@ const Feed = () => {
   React.useEffect(() => {
     const fetch = async () => {
       const data = await getPokemons();
-      const image = await Promise.all(
+      const response = await Promise.all(
         data.map(async (pokemon) => {
           const details = await getPokemonsDetails(pokemon.url);
           return {
             name: pokemon.name,
-            image: details.sprites.front_default,
+            image: details.image,
+            types: details.types,
+            weakness: details.weakness,
           };
         })
       );
-      setPokemons(image);
+      setPokemons(response);
     };
 
     fetch();
