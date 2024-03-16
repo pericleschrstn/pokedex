@@ -29,12 +29,17 @@ export const PokemonProvider = ({ children }) => {
 
   function toggleFavorite(pokemonName) {
     setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(pokemonName)) {
-        return prevFavorites.filter((name) => name !== pokemonName);
-      } else {
-        return [...prevFavorites, pokemonName];
-      }
+      const updatedFavorites = prevFavorites.includes(pokemonName)
+        ? prevFavorites.filter((name) => name !== pokemonName)
+        : [...prevFavorites, pokemonName];
+
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      return updatedFavorites;
     });
   }
-  return <PokemonContext.Provider value={{ pokemons, favorites, toggleFavorite }}>{children}</PokemonContext.Provider>;
+  return (
+    <PokemonContext.Provider value={{ pokemons, favorites, toggleFavorite, setFavorites }}>
+      {children}
+    </PokemonContext.Provider>
+  );
 };
