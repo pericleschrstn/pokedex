@@ -2,16 +2,33 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://pokeapi.co/api/v2/";
 
+export const numberPokemons = 10;
+
 export async function getPokemons() {
   try {
     const response = await axios.get("pokemon", {
       params: {
-        limit: 10,
+        limit: numberPokemons,
       },
     });
     return response.data.results;
   } catch (error) {
     console.error("Falha na requisição: ", error);
+    return [];
+  }
+}
+
+export async function getMorePokemons(offset) {
+  try {
+    const response = await axios.get("pokemon", {
+      params: {
+        limit: numberPokemons,
+        offset,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Falha ao buscar novos Pokémons: ", error);
     return [];
   }
 }
