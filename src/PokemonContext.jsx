@@ -1,5 +1,6 @@
 import React from "react";
 import { getPokemons, getPokemonsDetails } from "../api";
+import axios from "axios";
 
 export const PokemonContext = React.createContext();
 
@@ -9,9 +10,9 @@ export const PokemonProvider = ({ children }) => {
 
   React.useEffect(() => {
     const fetch = async () => {
-      const data = await getPokemons();
-      const dataDetails = await Promise.all(
-        data.map(async (pokemon) => {
+      const response = await getPokemons();
+      const data = await axios.all(
+        response.map(async (pokemon) => {
           const details = await getPokemonsDetails(pokemon.url);
           return {
             name: pokemon.name,
@@ -21,7 +22,7 @@ export const PokemonProvider = ({ children }) => {
           };
         })
       );
-      setPokemons(dataDetails);
+      setPokemons(data);
     };
 
     fetch();
