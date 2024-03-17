@@ -13,6 +13,7 @@ const Favorites = () => {
   }, []);
 
   const favoritePokemons = pokemons.filter((pokemon) => favorites.includes(pokemon.name));
+  console.log(favorites);
 
   return (
     <Container>
@@ -20,9 +21,13 @@ const Favorites = () => {
         Pokémons favoritos
       </Typography>
       <Grid2 container spacing={4} sx={{ paddingY: 6 }} component="section">
-        {favoritePokemons.map((pokemon) => (
-          <PokemonCard key={pokemon.name} pokemon={pokemon} />
-        ))}
+        {favorites.length > 0 ? (
+          favoritePokemons.map((pokemon) => <PokemonCard key={pokemon.name} pokemon={pokemon} />)
+        ) : (
+          <Grid2>
+            <p>Nenhum Pokémon favoritado</p>
+          </Grid2>
+        )}
       </Grid2>
     </Container>
   );
