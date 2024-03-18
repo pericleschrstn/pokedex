@@ -13,7 +13,7 @@ const PokemonCard = ({ pokemon }) => {
   }
 
   return (
-    <Grid2 xs={4}>
+    <Grid2 sm={12} lg={4}>
       <Card>
         <CardMedia
           component="img"
