@@ -13,7 +13,6 @@ const Favorites = () => {
   }, []);
 
   const favoritePokemons = pokemons.filter((pokemon) => favorites.includes(pokemon.name));
-  console.log(favorites);
 
   return (
     <Container>

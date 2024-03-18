@@ -8,7 +8,6 @@ const Home = () => {
       <Typography variant="h3" component="h1" textAlign="center">
         Escolha seu Pokémon favorito!
       </Typography>
-      <TextField label="Qual o nome do Pokémon?" fullWidth sx={{ mt: 4 }} />
       <Feed />
     </Container>
   );
